@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Game by DeiSoft</title>
+    <style>
+        body {
+            width: 100%;
+            margin: 0;
+        }
+        h1{
+            text-align: center;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 30vh;
+            text-align: center;
+        }
+
+        label {
+            margin: 5px;
+        }
+
+        input {
+            margin: 5px;
+        }
+
+        button {
+            margin: 10px;
+            font-size: 25px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        form{
+            margin: 15px;
+        }
+        main{
+            height: 70vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="color: red; text-shadow: 2px 2px 5px black;">Killer Game</h1>
+
+    <main>
+        <form>
+            <label for="nplayers" style="font-size: 30px;">Number of players:</label><br>
+            <input type="number" id="nplayers" name="nplayers" style="height: 40px; font-size: 25px;"><br>
+
+            <!-- <label for="nkillers">Number of killers:</label><br>
+            <input type="number" id="nkillers" name="nkillers"> -->
+            <input id="generateB" class="submit" type="submit" value="Generate"  style="height: 35px; font-size: 25px;" onclick="generate()" />
+
+        </form>
+
+        <button style="display: none;" id="see" type="button" onclick="see()">See</button>
+        <button style="display: none;" id="hide" type="button" onclick="hide()">Hide</button>
+
+        <h1 style="text-align: center;" id="randomPlayers"></h1>
+    </main>
+
+    <script>
+        const playersInput = document.getElementById('nplayers');
+        //const killersInput = document.getElementById('nkillers');
+
+        const randomPlayer = document.getElementById('randomPlayers');
+
+        const button = document.getElementById('generateB');
+
+
+        const seeB = document.getElementById('see');
+        const hideB = document.getElementById('hide');
+
+        let arrayPlayers = [];
+        //let arrayKillers = [];
+
+        const randomArray = [];
+
+        let index = 0;
+
+
+        function generate() {
+
+            event.preventDefault();
+
+            const players = playersInput.value;
+            //const killers = killersInput.value;
+
+            if (players != '') {
+                console.log("Number of players:", players);
+                //console.log("Number of killers:", killers);
+
+
+                for (let i = 0; i < players; i++) {
+                    arrayPlayers.push(i);
+                }
+
+
+                // for (let i = 0; i < killers; i++) {
+                //     arrayKillers.push(i);
+                // }
+
+                console.log(arrayPlayers);
+
+                //console.log(arrayKillers);
+
+                button.style.display = "none";
+                seeB.style.display = "block";
+                hideB.style.display = "block";
+
+
+                //generate an random array
+
+                while (arrayPlayers.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * arrayPlayers.length);
+                    const randomElement = arrayPlayers[randomIndex];
+
+                    randomArray.push(randomElement);
+                    arrayPlayers.splice(randomIndex, 1);
+                }
+
+                console.log(randomArray);
+
+            } else {
+                window.alert("Input number of players");
+            }
+        }
+
+
+        function see() {
+            //randomPlayer.textContent = randomArray[index];
+
+            if (randomArray.length > index) {
+                if (randomArray[index] != 0) {
+                    randomPlayer.style.color = "black";
+                    randomPlayer.textContent = "player";
+                } else if (randomArray[index] === 0) {
+                    randomPlayer.style.color = "red";
+                    randomPlayer.textContent = "killer";
+                }
+
+            } else {
+                randomPlayer.textContent = "no player";
+            }
+            index++;
+        }
+
+        function hide() {
+            randomPlayer.textContent = '';
+        }
+    </script>
+</body>
+
+</html>
