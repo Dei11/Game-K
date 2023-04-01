@@ -1,3 +1,3 @@
 # Game-K
 
-[Link](deisoft.mygamesonline.org)
+deisoft.mygamesonline.org
